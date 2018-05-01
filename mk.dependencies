@@ -2,5 +2,9 @@
   {
     "repository": "android_device_samsung_hlte-common",
     "target_path": "device/samsung/hlte-common"
+  },
+  {
+    "repository": "android_vendor_samsung_hltechn",
+    "target_path": "vendor/samsung/hltechn"
   }
 ]

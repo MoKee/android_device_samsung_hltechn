@@ -13,10 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+# Inherit some common MK stuff.
+$(call inherit-product, vendor/mk/config/common_full_phone.mk)
 
 $(call inherit-product, device/samsung/hltechn/full_hlte.mk)
 
 PRODUCT_DEVICE := hltechn
-PRODUCT_NAME := lineage_hltechn
+PRODUCT_NAME := mk_hltechn
