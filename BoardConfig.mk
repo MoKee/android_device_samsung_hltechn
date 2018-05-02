@@ -16,7 +16,7 @@
 # inherit from common hlte
 include device/samsung/hlte-common/BoardConfigCommon.mk
 
-TARGET_OTA_ASSERT_DEVICE := hlte,hltechn
+TARGET_OTA_ASSERT_DEVICE := hlte,hltechn,hltezm,hltezc
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_msm8974
