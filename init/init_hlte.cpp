@@ -45,6 +45,12 @@ void gsm_properties()
     property_set("telephony.lteOnGsmDevice", "1");
 }
 
+void h3g_properties()
+{
+    property_set("ro.telephony.default_network", "3");
+    property_set("telephony.lteOnGsmDevice", "0");
+}
+
 #define ISMATCH(a, b) (!strncmp((a), (b), PROP_VALUE_MAX))
 
 void init_target_properties()
@@ -55,20 +61,38 @@ void init_target_properties()
 
     std::string bootloader = GetProperty("ro.bootloader", "");
 
-    if (bootloader.find("N9008V") == 0) {
-        /* hltezm - China Mobile */
+    if (bootloader.find("N9006") == 0) {
+        /* h3gzn - China Unicom 3G */
+        property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/h3gzn/h3g:5.0/LRX21V/N9006ZNSGQD1:user/release-keys");
+        property_override("ro.build.description", "h3gzn-user 5.0 LRX21V N9006ZNSGQD1 release-keys");
+        property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-N9006");
+        property_override_dual("ro.product.device", "ro.vendor.product.device", "h3gzn");
+        h3g_properties();
+    } else if (bootloader.find("N9008") == 0) {
+        /* h3gzm - China Mobile 3G */
+        property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/h3gzm/h3g:5.0/LRX21V/N9008ZMSGQB1:user/release-keys");
+        property_override("ro.build.description", "h3gzm-user 5.0 LRX21V N9008ZMSGQB1 release-keys");
+        property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-N9008");
+        property_override_dual("ro.product.device", "ro.vendor.product.device", "h3gzm");
+        h3g_properties();
+    } else if (bootloader.find("N9008V") == 0) {
+        /* hltezm - China Mobile LTE*/
         property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/hltezm/hlte:5.0/LRX21V/N9008VZMSDQD2:user/release-keys");
         property_override("ro.build.description", "hltezm-user 5.0 LRX21V N9008VZMSDQD2 release-keys");
         property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-N9008V");
-        property_override_dual("ro.product.device", "ro.vendor.product.device", "hlte");
+        property_override_dual("ro.product.device", "ro.vendor.product.device", "hltezm");
+        gsm_properties();
     } else if (bootloader.find("N9008S") == 0) {
         /* hltezc - China LTE */
         property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/hltezc/hlte:5.0/LRX21V/N9008SZCSCQD1:user/release-keys");
         property_override("ro.build.description", "hltezc-user 5.0 LRX21V N9008SZCSCQD1 release-keys");
         property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-N9008S");
-        property_override_dual("ro.product.device", "ro.vendor.product.device", "hlte");
+        property_override_dual("ro.product.device", "ro.vendor.product.device", "hltezc");
+        gsm_properties();
+    } else {
+        gsm_properties();
     }
-    gsm_properties();
+    
 
     std::string device = GetProperty("ro.product.device", "");
     LOG(ERROR) << "Found bootloader id " << bootloader <<  " setting build properties for "
